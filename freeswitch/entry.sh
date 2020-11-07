@@ -114,6 +114,12 @@ if [ "$EC2" = 'true' ]; then
   # autoload_configs/switch.conf.xml
   sed -i 's%<!-- <param name="rtp-start-port" value="16384"/> -->%<param name="rtp-start-port" value="16384"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
   sed -i 's%<!-- <param name="rtp-end-port" value="32768"/> -->%<param name="rtp-end-port" value="32768"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
+
+  # vars.xml modifications
+  # <!-- IP Address -->
+  sed -i 's%<X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=stun:stun.freeswitch.org"/>%<X-PRE-PROCESS cmd="set" data="external_rtp_ip=$${local_ip_v4}" />%g' /etc/freeswitch/vars.xml
+  sed -i 's%<X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=stun:stun.freeswitch.org"/>%<X-PRE-PROCESS cmd="set" data="external_sip_ip=$${local_ip_v4}" />%g' /etc/freeswitch/vars.xml
+
 fi
 
 echo executing: "$@"
