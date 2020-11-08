@@ -8,6 +8,6 @@ services:
     restart: always
     network_mode: host
     volumes:
-      - /var/log/freeswitch:/var/log/freeswitch 
+      - /var/log/freeswitch:/var/log/freeswitch
     environment:
-      DEFAULT_PASSWORD: JcBefA7,wf)y>J9L
+      DEFAULT_PASSWORD: EG3/'44d2K?WsY(q{e

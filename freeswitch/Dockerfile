@@ -1,5 +1,7 @@
 FROM debian:buster
 
+LABEL mantainer Ricardo Deizeppe <ricardo.deizeppe@gmail.com>
+
 ENV CONFIG_PREWIPE false
 ENV EC2 false
 ENV SOFTTIMER_TIMERFD true
@@ -26,9 +28,12 @@ EXPOSE 5060/tcp 5060/udp 5080/tcp 5080/udp
 EXPOSE 5066/tcp 7443/tcp
 EXPOSE 8021/tcp
 
-COPY entry.sh /opt/local/bin/entry.sh
-COPY reload.sh /opt/local/bin/reload.sh
+WORKDIR /opt/local/bin
+COPY . .
 
-ENTRYPOINT ["/opt/local/bin/entry.sh"]
+# Limits Configuration
+COPY freeswitch.limits.conf /etc/security/limits.d/
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
 CMD ["freeswitch", "-c", "-nf"]

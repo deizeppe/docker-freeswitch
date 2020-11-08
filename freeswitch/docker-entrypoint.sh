@@ -51,6 +51,18 @@ xmlstarlet ed -L -u \
   -v "default_password=$DEFAULT_PASSWORD" \
     /etc/freeswitch/vars.xml
 
+#vars.xml
+sed -i 's%<X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=stun:stun.freeswitch.org"/>%<X-PRE-PROCESS cmd="set" data="external_rtp_ip=$${local_ip_v4}" />%g' /etc/freeswitch/vars.xml
+sed -i 's%<X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=stun:stun.freeswitch.org"/>%<X-PRE-PROCESS cmd="set" data="external_sip_ip=$${local_ip_v4}" />%g' /etc/freeswitch/vars.xml
+
+#modules.conf.xml
+sed -i 's%<load module="mod_signalwire"/>%<!-- <load module="mod_signalwire"/> -->%g' /etc/freeswitch/autoload_configs/modules.conf.xml
+
+#switch.conf.xml
+sed -i 's%<param name="max-sessions" value="1000"/>%<param name="max-sessions" value="10000"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
+sed -i 's%<param name="sessions-per-second" value="30"/>%<param name="sessions-per-second" value="1500"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
+sed -i 's%<!-- <param name="min-idle-cpu" value="25"/> -->%<param name="min-idle-cpu" value="0"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
+
 # timerfd support
 # https://wiki.freeswitch.org/wiki/Mod_timerfd
 if [ "$SOFTTIMER_TIMERFD" = 'true' ]; then
@@ -114,11 +126,6 @@ if [ "$EC2" = 'true' ]; then
   # autoload_configs/switch.conf.xml
   sed -i 's%<!-- <param name="rtp-start-port" value="16384"/> -->%<param name="rtp-start-port" value="16384"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
   sed -i 's%<!-- <param name="rtp-end-port" value="32768"/> -->%<param name="rtp-end-port" value="32768"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
-
-  # vars.xml modifications
-  # <!-- IP Address -->
-  sed -i 's%<X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=stun:stun.freeswitch.org"/>%<X-PRE-PROCESS cmd="set" data="external_rtp_ip=$${local_ip_v4}" />%g' /etc/freeswitch/vars.xml
-  sed -i 's%<X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=stun:stun.freeswitch.org"/>%<X-PRE-PROCESS cmd="set" data="external_sip_ip=$${local_ip_v4}" />%g' /etc/freeswitch/vars.xml
 
 fi
 
