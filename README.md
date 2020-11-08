@@ -1,19 +1,16 @@
-<h1>docker-freeswitch<h1>
+## docker-freeswitch
 
-<h2>Based on Debian linux:</h2>
+## Based on Debian linux
+## Debian Buster:
 
-Debian Buster:
-
-
-
-<b>Run</b>
+### Run
 
     $ docker-compose up -d
 
-<b>Runtime Management</b>
+#### Runtime Management
     $ docker container exec -it freeswitch bash
 
-<b>Testing the Server</b>
+#### Testing the Server
   FreeSWITCH comes out of the box with a default password for registrations to users 1000-1019 as '1234'. 
   The default password should be changed by setting DEFAULT_PASSWORD with the container run.
 
