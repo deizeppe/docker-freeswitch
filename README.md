@@ -4,7 +4,7 @@
 
 Debian Buster:
 
-<pre>
+
 
 <b>Run</b>
 
@@ -17,4 +17,4 @@ Debian Buster:
   FreeSWITCH comes out of the box with a default password for registrations to users 1000-1019 as '1234'. 
   The default password should be changed by setting DEFAULT_PASSWORD with the container run.
 
-</pre>
+
