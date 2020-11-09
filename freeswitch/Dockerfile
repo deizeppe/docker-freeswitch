@@ -2,6 +2,7 @@ FROM debian:buster
 
 LABEL mantainer Ricardo Deizeppe <ricardo.deizeppe@gmail.com>
 
+
 ENV CONFIG_PREWIPE false
 ENV EC2 false
 ENV SOFTTIMER_TIMERFD true
@@ -19,9 +20,10 @@ RUN apt-get update && apt-get -y install curl lsb-release gnupg gnupg2 && \
 # Clean up
 RUN apt-get autoremove
 
-VOLUME /etc/freeswitch 
-VOLUME /var/lib/freeswitch 
-VOLUME /var/log/freeswitch 
+
+VOLUME /etc/freeswitch
+VOLUME /var/lib/freeswitch
+VOLUME /var/log/freeswitch
 VOLUME /usr/share/freeswitch
 
 EXPOSE 5060/tcp 5060/udp 5080/tcp 5080/udp

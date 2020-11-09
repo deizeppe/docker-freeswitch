@@ -1,2 +1,0 @@
-# docker-freeswitch
-docker-freeswitch

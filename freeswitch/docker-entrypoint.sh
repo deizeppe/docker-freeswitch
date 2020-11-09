@@ -128,6 +128,5 @@ if [ "$EC2" = 'true' ]; then
   sed -i 's%<!-- <param name="rtp-end-port" value="32768"/> -->%<param name="rtp-end-port" value="32768"/>%g' /etc/freeswitch/autoload_configs/switch.conf.xml
 
 fi
-
 echo executing: "$@"
 exec "$@"

@@ -10,4 +10,4 @@ services:
     volumes:
       - /var/log/freeswitch:/var/log/freeswitch
     environment:
-      DEFAULT_PASSWORD: EG3/'44d2K?WsY(q{e
+      DEFAULT_PASSWORD: EG3/'44d?WsY(q{e
