@@ -1,7 +1,3 @@
-
-
-
-
 #Freeswitch
 ### Option: UserParameter
 ####Channel count

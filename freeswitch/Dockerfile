@@ -15,11 +15,15 @@ RUN apt-get update && apt-get -y install curl lsb-release gnupg gnupg2 && \
       echo "deb-src http://files.freeswitch.org/repo/deb/debian-release/ `lsb_release -sc` main" >> /etc/apt/sources.list.d/freeswitch.list && \
       apt-get -y update && apt-get -y upgrade && \
       apt-get -y install xmlstarlet git vim freeswitch-all freeswitch-all-dbg gdb && \
+      apt-get -y install libfreeswitch-dev libtool libesl-perl && \
+      mkdir -p /tmp/build && \
+      cd /tmp/build && \
+      git clone https://github.com/xadhoom/mod_bcg729.git && \
+      cd mod_bcg729 && \
+      
+      make && make install && \
+      sed -i "s|mod_g729\+|mod_bcg729|g" /etc/freeswitch/autoload_configs/modules.conf.xml && \
       apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Clean up
-RUN apt-get autoremove
-
 
 VOLUME /etc/freeswitch
 VOLUME /var/lib/freeswitch
