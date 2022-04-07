@@ -11,5 +11,3 @@ fs_cli -x "status" | grep 'session(s) per Sec out of max' | awk '{print $13}'
 
 ###Sessions count since startup
 fs_cli -x "status" | grep "session(s) since startup" | awk {'print $1'}
-
-
