@@ -3,11 +3,9 @@ services:
   freeswitch:
     container_name: freeswitch
     tty: true
-    image: deizeppe/freeswitch
+    image: deizeppe/freeswitch:alpine
     stdin_open: true
     restart: always
     network_mode: host
-    volumes:
-      - /var/log/freeswitch:/var/log/freeswitch
     environment:
       DEFAULT_PASSWORD: EG3/'44d?WsY(q{e

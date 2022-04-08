@@ -22,9 +22,10 @@ RUN echo "machine freeswitch.signalwire.com login signalwire password pat_BPJc9r
 RUN echo "deb [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" > /etc/apt/sources.list.d/freeswitch.list
 RUN echo "deb-src [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" >> /etc/apt/sources.list.d/freeswitch.list
 
-RUN apt-get update && apt-get install -y freeswitch-meta-all \
-      && apt-get -y install libfreeswitch-dev libtool libesl-perl \
-      && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y freeswitch-meta-all
+
+#      && apt-get -y install libfreeswitch-dev libtool libesl-perl \
+#      && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Clean up
 RUN apt-get autoremove
@@ -45,10 +46,12 @@ EXPOSE 5070/udp 5070/tcp
 EXPOSE 8021/tcp
 ## RTP ports
 #EXPOSE 64535-65535/udp
-#EXPOSE 16384-32768/udp
+#EXPOSE 16384-32768/up
 
 # Limits Configuration
 COPY freeswitch.limits.conf /etc/security/limits.d/
+
+COPY docker-entrypoint.sh /opt/local/bin/docker-entrypoint.sh
 
 COPY reload.sh /opt/local/bin/reload.sh
 COPY dialer.pl /opt/local/bin/dialer.pl
@@ -58,6 +61,7 @@ SHELL       ["/bin/bash"]
 HEALTHCHECK --interval=15s --timeout=5s \
     CMD  fs_cli -x status | grep -q ^UP || exit 1
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "/opt/local/bin/docker-entrypoint.sh"]
+
 
 CMD ["freeswitch"]
